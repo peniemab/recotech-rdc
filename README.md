@@ -38,3 +38,32 @@ Plan de Test (Verification)
 - Vérifier le comparatif de deux produits.
 - Tester la soumission d'un témoignage/avis.
 - Tester rigoureusement le Responsive Design (iPhone, iPad, Desktop).
+
+
+
+database schema 
+-- WARNING: This schema is for context only and is not meant to be run.
+-- Table order and constraints may not be valid for execution.
+
+CREATE TABLE public.newsletter_subscribers (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  email text NOT NULL UNIQUE,
+  prize text NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+  CONSTRAINT newsletter_subscribers_pkey PRIMARY KEY (id)
+);
+CREATE TABLE public.products (
+  id uuid NOT NULL DEFAULT gen_random_uuid(),
+  slug text NOT NULL UNIQUE,
+  name text NOT NULL,
+  brand text NOT NULL,
+  category text NOT NULL,
+  price numeric NOT NULL,
+  original_price numeric NOT NULL,
+  condition text NOT NULL,
+  image text NOT NULL,
+  in_stock boolean DEFAULT true,
+  specs jsonb NOT NULL,
+  created_at timestamp with time zone NOT NULL DEFAULT timezone('utc'::text, now()),
+  CONSTRAINT products_pkey PRIMARY KEY (id)
+);
